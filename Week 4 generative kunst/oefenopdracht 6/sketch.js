@@ -13,33 +13,33 @@ function draw() {
   text ("6.", 350, 105)
   text ("7.", 625, 105)
   fill (255)
-
-  for(let rijtien = 0; rijtien < 10; rijtien++)
+  
+for(let rijtien = 0; rijtien < 10; rijtien++)
+{
+square (20 + (rijtien * 50), 20, 50)
+if(rijtien == 5)
   {
-    square (20 + (rijtien * 50), 20, 50)
-    if(rijtien == 6)
-    {
-      fill ("blue")
-    }
-    else 
-    {
-      fill (255)
-    }
+    fill ("blue")
   }
-  fill (0)
-  for(let ondervijf = 0; ondervijf < 5; ondervijf++)
+  else 
   {
-    square (20, 110 + (ondervijf * 50), 50)
-    if(ondervijf == 0)
-    {
-      fill (255)
-    }
-    
-    if(ondervijf == 0)
+    fill (255)
+  }
+}
+fill (0)
+for(let ondervijf = 0; ondervijf < 5; ondervijf++)
+  {
+square (20, 110 + (ondervijf * 50), 50)
+if(ondervijf == 0)
+  {
+    fill (255)
+  }
+  
+  if(ondervijf == 0)
     {
       fill (50)
     }
-
+              
     if(ondervijf == 1)
     {
       fill (100)
@@ -58,9 +58,14 @@ function draw() {
       fill (255)
     }
   }
-
+  let width = 25
+  let x = 80
   for(let rijvier = 0; rijvier < 4; rijvier++)
   {
-    rect (80 + (rijvier * 30), 110, 30 + (rijvier * 10), 50)
+    let green = 255 / 3 * rijvier
+    fill ( 0, green, 0)
+    rect (x, 110, width, 50)
+    width = width + 25
+    x = x + width
   }
 }
