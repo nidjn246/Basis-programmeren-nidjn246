@@ -13,7 +13,7 @@ function draw() {
   text ("6.", 350, 105)
   text ("7.", 625, 105)
   fill (255)
-  
+ // 
 for(let rijtien = 0; rijtien < 10; rijtien++)
 {
 square (20 + (rijtien * 50), 20, 50)
