@@ -8,6 +8,9 @@ let blue = ["square1", "square2", "square3"]
 let red1 = ["circle1", "circle2", "circle3"]
 let green1 = ["circle1", "circle2", "circle3"]
 let blue1 = ["circle1", "circle2", "circle3"]
+let backgroundcolor
+let backgroundcolor1
+let backgroundcolor2
 let sizecircle
 let sizesquare 
 
@@ -18,7 +21,7 @@ function setup()
 
 function draw() 
 {
-  background(220);
+  background(backgroundcolor, backgroundcolor1, backgroundcolor2);
   strokeWeight(5)
 
   //a loop to make squares
@@ -81,16 +84,19 @@ function keyPressed() {
   {
     sizecircle = random (120, 200)
     sizesquare = random (120, 200)
+    backgroundcolor = random (0, 255)
+    backgroundcolor1 = random (0, 255)
+    backgroundcolor2 = random (0, 255)
   
     //how many squares there need to be made
-    for (let square = 0; square < 10; square++) 
+    for (let square = 0; square < random (20, 35); square++) 
     {
       xsquare[square] = round(random(0, 800))
       ysquare[square] = round(random(0, 600))
     }
 
     //how many circles need to be made
-    for (let circle = 0; circle < 10; circle++) 
+    for (let circle = 0; circle < random (20, 35); circle++) 
     {
       xcircle[circle] = round(random(0, 800))
       ycircle[circle] = round(random(0, 600))
