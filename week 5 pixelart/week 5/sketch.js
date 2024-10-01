@@ -13,8 +13,15 @@ function draw() {
   buttonsteve.position(250, 80)
   buttonsteve.mousePressed(drawSteve)
 }
-
 function drawAmongus() {
+  let colorpallet = 
+  [
+    [0, 190, 40],
+    [0],
+    [248, 2, 7],
+    [150, 202, 221],
+    [255],
+  ]
   let amongus =
     [
       [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -47,29 +54,15 @@ function drawAmongus() {
       [0, 0, 0, 0, 1, 2, 2, 2, 2, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ]
-  //0 = green
-  //1 = black
-  //2 = red
-  //3 = grey
-  //4 = white
+  //0 = green fill(0, 190, 40)
+  //1 = black fill(0)
+  //2 = red fill(248, 2, 7)
+  //3 = grey fill(150, 202, 221)
+  //4 = white fill(255)
   background(0, 190, 40);
-  for (let y = 0; y < 29; y++) {
-    for (let x = 0; x < 29; x++) {
-      if (amongus[y][x] == 0) {
-        fill(0, 190, 40)
-      }
-      else if (amongus[y][x] == 1) {
-        fill(0)
-      }
-      else if (amongus[y][x] == 2) {
-        fill(248, 2, 7)
-      }
-      else if (amongus[y][x] == 3) {
-        fill(150, 202, 221)
-      }
-      else if (amongus[y][x] == 4) {
-        fill(255)
-      }
+  for (let y = 0; y < amongus.length; y++) {
+    for (let x = 0; x < amongus[0].length; x++) {
+      fill (colorpallet[amongus[y][x]])
       square(x * 10, y * 10 + 10, 10)
     }
   }
@@ -117,39 +110,24 @@ function drawSteve() {
   //7
   //8
   //9 = grey
+
+  let colorpallet = 
+  [
+    [0, 190, 40],
+    [212, 171, 139],
+    [96, 58, 57],
+    [0, 191, 255],
+    [126, 112, 209],
+    [123, 75, 193],
+    [255],
+    [152, 92, 32],
+    [162, 120, 80],
+    [99, 109, 114]
+  ]
   background(0, 190, 40);
-  for (let y = 0; y < 29; y++) {
-    for (let x = 0; x < 29; x++) {
-      if (steve[y][x] == 0) {
-        fill(0, 190, 40)
-      }
-      else if (steve[y][x] == 1) {
-        fill(212, 171, 139)
-      }
-      else if (steve[y][x] == 2) {
-        fill(96, 58, 57)
-      }
-      else if (steve[y][x] == 3) {
-        fill(0, 191, 255)
-      }
-      else if (steve[y][x] == 4) {
-        fill(126, 112, 209)
-      }
-      else if (steve[y][x] == 5) {
-        fill(123, 75, 193)
-      }
-      else if (steve[y][x] == 6) {
-        fill(255)
-      }
-      else if (steve[y][x] == 7) {
-        fill(152, 92, 32)
-      }
-      else if (steve[y][x] == 8) {
-        fill(162, 120, 80)
-      }
-      else if (steve[y][x] == 9) {
-        fill(99, 109, 114)
-      }
+  for (let y = 0; y < steve.length; y++) {
+    for (let x = 0; x < steve[0].length; x++) {
+      fill(colorpallet[steve[y][x]])
       square(x * 10, y * 10 + 10, 10)
     }
   }
