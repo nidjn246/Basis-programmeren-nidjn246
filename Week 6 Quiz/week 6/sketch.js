@@ -114,7 +114,7 @@ function draw() {
   }
   
   //if it did start show the score and questions
-  if (gamestarted == true) {
+  if (gamestarted == true && currentquestion < questions.length - 1) {
     textSize(30);
     fill(121, 90, 45);
     textFont("Comic Sans MS")
@@ -185,6 +185,7 @@ function nextQuestion() {
   currentquestion++
   if (currentquestion == 5) {
     theEnd()
+    return
   }
   showQuestion(questions[currentquestion])
   text(questions[currentquestion].question, 220, 100)
