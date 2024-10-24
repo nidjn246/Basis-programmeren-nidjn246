@@ -10,42 +10,42 @@ const questions =
   [{
     question: "How many movies does Shrek have?",
     answers: [7, 5, 4, 6],
-    img: '/../Images/question 1.jpeg',
+    img: 'Images/question 1.jpeg',
 
     correct: 6
   },
   {
     question: "What are the names of the kids Shrek had?",
     answers: ["Felicia, Fergus and Farkle", "Frank, Fernando and Faith", "That kid, The other kid and that one", "They do not have names"],
-    img: "/../Images/question 2.jpeg",
+    img: "Images/question 2.jpeg",
 
     correct: "Felicia, Fergus and Farkle"
   },
   {
     question: "What kind of creature is Shrek?",
     answers: ["An ogre", "A goblin", "Just a human painted green", "The green goblin"],
-    img: '/../Images/question 3.jpeg',
+    img: 'Images/question 3.jpeg',
 
     correct: "An ogre"
   },
   {
     question: "Where is Shrek's house located?",
     answers: ["In the sewer", "In a city", "A swamp", "In your closet"],
-    img: '/../Images/question 4.jpeg',
+    img: 'Images/question 4.jpeg',
 
     correct: "A swamp"
   },
   {
     question: "What song is considered the iconic Shrek song?",
     answers: ["Like Wow!", "I'm a Believer", "Bad reputation", "All Star"],
-    img: '/../Images/question 5.jpeg',
+    img: 'Images/question 5.jpeg',
 
     correct: "All Star"
   },
   {
     question: null,
     answers: [null, null, null, null],
-    img: '/../Images/end.png',
+    img: 'Images/end.png',
 
     correct: "null"
   }]

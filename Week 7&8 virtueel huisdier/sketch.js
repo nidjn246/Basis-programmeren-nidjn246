@@ -52,8 +52,8 @@ function setup() {
 
 //load the day/night background image
 function preload() {
-  bgroundnight = loadImage("/../Images/backgroundnight.jpg")
-  bgroundday = loadImage("/../Images/background.jpg")
+  bgroundnight = loadImage("Images/backgroundnight.jpg")
+  bgroundday = loadImage("Images/background.jpg")
 }
 
 function draw() {
@@ -231,59 +231,59 @@ function loadData() {
 
 //create all the buttons needed to play the game
 function createButtons() {
-  foodButton = createImg("/../Images/burger.png")
+  foodButton = createImg("Images/burger.png")
   foodButton.size(70, 70)
   foodButton.position(100, 370)
   foodButton.mouseClicked(giveFood)
 
-  playButton = createImg("/../Images/play.png")
+  playButton = createImg("Images/play.png")
   playButton.position(250, 370)
   playButton.size(80, 70)
   playButton.mouseClicked(play)
 
-  sleepButton = createImg("/../Images/bed.png")
+  sleepButton = createImg("Images/bed.png")
   sleepButton.position(400, 380)
   sleepButton.size(80, 50)
   sleepButton.mouseClicked(sleep)
 
-  HealthButton = createImg("/../Images/soap.png")
+  HealthButton = createImg("Images/soap.png")
   HealthButton.size(80, 80)
   HealthButton.position(550, 370)
   HealthButton.mouseClicked(heal)
 
-  menu = createImg("/../Images/hamburgermenu.png")
+  menu = createImg("Images/hamburgermenu.png")
   menu.position(650, 10)
   menu.size(40, 40)
   menu.mouseClicked(menuBar)
 
-  blackColor = createImg("/../Images/black.jpeg")
+  blackColor = createImg("Images/black.jpeg")
   blackColor.size(70, 70)
   blackColor.position(320, 15)
   blackColor.mouseClicked(giveBlackFur)
 
-  greenColor = createImg("/../Images/green.png")
+  greenColor = createImg("Images/green.png")
   greenColor.size(70, 70)
   greenColor.position(440, 15)
   greenColor.mouseClicked(giveGreenFur)
 
-  redColor = createImg("/../Images/red.jpg")
+  redColor = createImg("Images/red.jpg")
   redColor.size(70, 70)
   redColor.position(560, 15)
   redColor.mouseClicked(giveRedFur)
 
-  stopsleep = createImg("/../Images/nobed.png")
+  stopsleep = createImg("Images/nobed.png")
   stopsleep.position(600, 350)
   stopsleep.size(80, 80)
   stopsleep.mouseClicked(resetButtons)
   stopsleep.hide()
 
-  stopPlay = createImg("/../Images/noplay.png")
+  stopPlay = createImg("Images/noplay.png")
   stopPlay.position(600, 350)
   stopPlay.size(80, 80)
   stopPlay.mouseClicked(resetButtons)
   stopPlay.hide()
 
-  ballButton = createImg("/../Images/bal.png")
+  ballButton = createImg("Images/bal.png")
   ballButton.size(40, 40)
   ballButton.position(ballX, ballY)
   ballButton.mouseClicked(clickedBall)
