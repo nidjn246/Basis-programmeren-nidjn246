@@ -1,18 +1,30 @@
-let startgame = false
-let nameanimal
-let bground
-let size = 15
-let hunger = 100
-let energy = 100
-let health = 100
-let happiness = 100
-let larryState
-let resetbar = 0
-let resetTimer = 0
-let stats = 0
-let buttonTimer= 0
-let fur = 0
-let menuOpen = false
+let startgame = false;
+let bground;
+let nameanimal;
+let textcolor = 0;
+let size = 15;
+
+let hunger = 100;
+let energy = 100;
+let health = 100;
+let happiness = 100;
+let larryState;
+let stats = 0;
+
+let resetbar = 0;
+let resetTimer = 0;
+let buttonTimer= 0;
+
+let fur = 0;
+let menuOpen = false;
+let isSleeping = false;
+let daytimer = 0;
+let night = false;
+
+let ballX;
+let ballY;
+let startX = 250;
+let startY = 160;
 
 // all of the states larry can output
 let states = {
@@ -26,107 +38,199 @@ let states = {
   tired: 7,
   hungry: 8,
   starving: 9,
+  sleeping: 10
 }
 
 
 function setup() {
   createCanvas(700, 450);
+  //create all the buttons 
   createButtons()
-  // changeBackground()
   //load all the data from the local storage to the game
   loadData()
 }
 
-//load the background image
+//load the day/night background image
 function preload(){
-  bground = loadImage ("/../Images/background.jpg")
+  bgroundnight = loadImage ("/../Images/backgroundnight.jpg")
+  bgroundday = loadImage ("/../Images/background.jpg")
 }
 
 function draw() {
-  console.log (fur)
-  background(bground)
-  saveData()
-    //make the reset button work
-    reset()
 
+  //if the time of the day is higher then 60 make it night
+  if (daytimer > 0 && daytimer < 60){
+  background(bgroundday)
+  textcolor = 0
+  night = false
+  }
+
+  else {
+    background (bgroundnight)
+    night = true   
+    textcolor = 255
+  }
+
+  //when the time = 100 set it back to 0
+  if (daytimer > 100){
+    daytimer = 0
+  }
+
+  //save the game every frame
+  saveData()
+
+  //make the reset button work
+  reset()
+
+  //set a 'border' between 0 and 100 so that the meters cant go over it
   happiness = constrain(happiness, 0, 100)
+
   hunger = constrain(hunger, 0, 100)
+
   health = constrain(health, 0, 100)
+
   energy = constrain(energy, 0, 100)
+
+  //draw all the bars
   drawBars()
+
+  //make the name larry show up and the reset text
   textSize ( 30)
-  fill (0)
+  fill (textcolor)
   textFont ("comic sans ms")
-  text (nameanimal, 310, 140)
+  text ("Larry", 310, 140)
+
   textSize (15)
   text ("Hold Esc to reset Larry", 10, 30)
-  checkState()
-  drawAnimal()
 
-  if (menuOpen == true){
+  //check what state larry is in
+  checkState()
+
+  //draw larry every frame
+  drawAnimal()
+    
+    //make the menu background when you click the menu button
+    if (menuOpen == true){
     fill (255)
     rect (301, 10, 350, 80)
+
     blackColor.show()
     greenColor.show()
     redColor.show()
   }
+
+  //else hide the menu options
   else {
     blackColor.hide()
     greenColor.hide()
     redColor.hide()
   }
 
-  if (hunger > 0){
-    hunger = hunger - deltaTime / 2000
+  //make the time of the day go up
+  daytimer = daytimer + deltaTime / 1000
+
+  //when larry isnt sleeping give him hunger
+  if (hunger > 0 && isSleeping == false){
+    hunger = hunger - deltaTime / 3000
   }
   
-  if (energy > 0){
-    energy = energy - deltaTime / 2500
+  //when larry isnt sleeping make him tired
+  if (energy > 0 && night == false&& isSleeping == false){
+    energy = energy - deltaTime / 3100
+  }
+
+  //when larry isnt sleeping and it is night make him tired faster
+  else if (night == true && isSleeping == false) {
+    energy = energy - deltaTime / 1500
   }
   
-  if (hunger < 1){
+  //when larry his hunger is 0 make him sick
+  if (hunger < 1&& isSleeping == false){
     health = health - deltaTime / 4000
   }
   
-  if (happiness > 0){
+  //make larry less happy over time
+  if (happiness > 0&& isSleeping == false){
     happiness = happiness - deltaTime / 5000
   }
 
-  //roept een functie aan na x tijd
-  //setTimeout(resetKnoppen, 300);
+  //when larry is sleeping give him hunger. and more energy and health
+  if (isSleeping == true){
+    hunger = hunger - deltaTime / 900
+    energy = energy + deltaTime / 500
+    health = health + deltaTime / 1000
+  }
 }
 
-
-function resetKnoppen()
+//reset all the buttons when they were hidden
+function resetButtons()
 {
+  foodButton.position (100, 370)
 
+  HealthButton.position(550, 370)
+
+  foodButton.show()
+  playButton.show()
+  sleepButton.show()
+  HealthButton.show()
+
+  startX = 250
+  startY = 160
+
+  size = 15
+
+  sleepButton.position(400, 380)
+  sleepButton.size (80, 50)
+  stopsleep.hide()
+  isSleeping = false
+  
+  stopPlay.hide()
+  ballButton.hide()
+  
 }
 
-
+  //when the function is called save all the stats of the game
   function saveData (){
   stats = []
-  stats.push (hunger, energy, health, happiness, fur)
+  stats.push (
+
+  hunger,
+  energy,
+  health,
+  happiness,
+  fur,
+  daytimer
+
+)
   storeItem('hungerstat', stats[0])
+
   storeItem('energystat', stats[1])
+
   storeItem('healthstat', stats[2])
+
   storeItem('happinessstat', stats[3])
+
   storeItem('colorfur', stats[4])
+
+  storeItem("time", stats[5])
 }
 
-// function changeBackground (){
-//   rightButton = createImage ("/../Images/rightarrow.png")
-//   rightButton.Size (70, 70)
-//   rightButton.position (100, 100)
-// }
-
+//when the game starts load the data that was stored
 function loadData(){
   hunger = getItem("hungerstat") || 100
+
   energy = getItem("energystat") || 100
+
   health = getItem("healthstat") || 100
+
   happiness = getItem("happinessstat") || 100
+
   fur = getItem("colorfur") || 0
+
+  daytimer = getItem("time") || 0
 }
 
+//create all the buttons needed to play the game
 function createButtons(){
   foodButton = createImg("/../Images/burger.png")
   foodButton.size (70, 70)
@@ -156,35 +260,71 @@ function createButtons(){
   blackColor = createImg ("/../Images/black.jpeg")
   blackColor.size (70, 70)
   blackColor.position (320, 15)
-  blackColor.mouseClicked(black1)
+  blackColor.mouseClicked(giveBlackFur)
 
   greenColor = createImg ("/../Images/green.png")
   greenColor.size (70, 70)
   greenColor.position (440, 15)
-  greenColor.mouseClicked(green1)
+  greenColor.mouseClicked(giveGreenFur)
 
   redColor = createImg ("/../Images/red.jpg")
   redColor.size (70, 70)
   redColor.position (560, 15)
-  redColor.mouseClicked(red1)
+  redColor.mouseClicked(giveRedFur)
+
+  stopsleep = createImg("/../Images/nobed.png")
+  stopsleep.position (600, 350)
+  stopsleep.size (80, 80)
+  stopsleep.mouseClicked(resetButtons)
+  stopsleep.hide()
+
+  stopPlay = createImg("/../Images/noplay.png")
+  stopPlay.position (600, 350)
+  stopPlay.size (80, 80)
+  stopPlay.mouseClicked(resetButtons)
+  stopPlay.hide()
+
+  ballButton = createImg("/../Images/bal.png")
+  ballButton.size (40, 40)
+  ballButton.position (ballX, ballY)
+  ballButton.mouseClicked (clickedBall)
+  ballButton.hide()
+
 }
 
-function black1 (){
+//when you click on the ball in the minigame give it a random location
+function clickedBall (){
+  ballX = round (random (0, 660))
+
+  ballY = round (random (0, 410))
+
+  ballButton.position (ballX, ballY)
+
+  energy -= 10
+  happiness += 20
+}
+
+//give larry black fur
+function giveBlackFur (){
   fur = [0]
 }
 
-function green1 (){
+//give larry green fur
+function giveGreenFur (){
   fur = [4, 130, 4]
 }
 
-function red1 (){
+//give larry red fur
+function giveRedFur (){
   fur = "red"
 }
 
+//when the menu button is clicked set menuOpen to true
 function menuBar(){
  menuOpen = !menuOpen
 }
 
+//when the foodbutton is clicked give him food and place the icon by his mouth
 function giveFood(){
   hunger += 30;
   if (hunger > 100){
@@ -193,30 +333,72 @@ function giveFood(){
   
   energy += 10;
   happiness += 5;
+
+  foodButton.position(310, 240)
+
+  playButton.hide()
+  sleepButton.hide()
+  HealthButton.hide()
+
+  //over 1 second reset the buttons
+  setTimeout(resetButtons, 1000)
 }
 
+//when you click the sleep button set issleeping to true and give energy
 function sleep (){
-energy += 80;
-happiness -= 10
-health += 5
-hunger -= 20;
 
+isSleeping = true
+
+size = 5
+
+startX = 300
+startY = 270
+
+foodButton.hide()
+playButton.hide()
+HealthButton.hide()
+stopsleep.show()
+
+sleepButton.size(150, 100)
+sleepButton.position(270, 300)
 }
 
+//when you click play start the minigame and give the ball a random loction
 function play(){
-happiness += 30
 
+ballX = round(random (0, 700))
 
-energy -= 10;
+ballY = round(random (0, 450))
 
+ballButton.position (ballX, ballY)
+
+foodButton.hide()
+ballButton.show()
+playButton.hide()
+sleepButton.hide()
+HealthButton.hide()
+stopPlay.show()
 }
 
+//when you clean larry give him health
 function heal(){
   health += 20;
+
+  foodButton.hide()
+  playButton.hide()
+  sleepButton.hide()
+  HealthButton.position(325, 260)
+  setTimeout(resetButtons, 1000)
 }
 
+//check every frame if larry needs to show emotions
 function checkState(){
-  if (health < 50 && health > 25){
+
+  if (isSleeping == true){
+    larryState = states.sleeping
+  }
+
+  else if (health < 50 && health > 25){
     larryState = states.low_health
   }
 
@@ -257,6 +439,7 @@ function checkState(){
   }
 }
 
+//draw the 4 bars and the reset bar
 function drawBars(){
   textSize(13)
   //hunger
@@ -265,7 +448,7 @@ function drawBars(){
   rect (450, 100, 10, 100)
   fill (255)
   rect (450, 100, 10, 100 - hunger)
-  fill (0)
+  fill (textcolor)
   text ("Food", 440, 210)
 
   //energy
@@ -274,7 +457,7 @@ function drawBars(){
   rect (510, 100, 10, 100)
   fill (255)
   rect (510, 100, 10, 100 - energy)
-  fill(0)
+  fill(textcolor)
   text ("Energy", 495, 210)
 
   //Health
@@ -283,7 +466,7 @@ function drawBars(){
   rect (570, 100, 10, 100)
   fill (255)
   rect (570, 100, 10, 100 - health)
-  fill(0)
+  fill(textcolor)
   text ("Health", 555, 210)
 
   //Happiness
@@ -292,7 +475,7 @@ function drawBars(){
   rect (630, 100, 10, 100)
   fill (255)
   rect (630, 100, 10, 100 - happiness)
-  fill(0)
+  fill(textcolor)
   text ("happiness", 610, 210)
 
   //resetbar
@@ -304,9 +487,10 @@ function drawBars(){
   }
 }
 
-
+//draw larry
 function drawAnimal() {
-
+  
+  //the array where larry his frames are stored
   let animal =
   [ 
     [
@@ -432,7 +616,7 @@ function drawAnimal() {
       [0, 0, 0, 0, 0, 2, 1, 2, 0, 0, 0, 0],
       [0, 0, 0, 0, 2, 2, 1, 2, 2, 0, 0, 0],
       [0, 0, 0, 0, 0, 2, 1, 2, 0, 0, 0, 0],
-      [0, 0, 0, 1, 2, 2, 2, 2, 2, 0, 0, 0],
+      [0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0],
       [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
     ],
     [
@@ -448,9 +632,24 @@ function drawAnimal() {
       [0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0],
       [0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0],
       [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
+    ],
+    [
+      [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0],
+      [0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 0],
+      [2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 3],
+      [2, 1, 7, 7, 1, 1, 1, 1, 1, 1, 1, 3],
+      [2, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 3],
+      [2, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 0],
+      [2, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 3],
+      [2, 1, 7, 7, 1, 1, 1, 1, 1, 1, 1, 3],
+      [2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 3],
+      [0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ]
   ]
-
+  
+  //the colorpallet that larry uses
   let colorpallet = [
     color(0, 0, 0, 0),
     color(255),
@@ -462,9 +661,11 @@ function drawAnimal() {
     color(0)
   ];
 
-  drawImage(250, 160, animal[larryState], colorpallet);
-}
+  //call drawimage
+  drawImage(startX, startY, animal[larryState], colorpallet);
+} 
 
+//draw larry with the parameters given
 function drawImage(startX, startY, image, palette) {
   strokeWeight(0)
   for (let y = 0; y < image.length; y++) {
@@ -475,16 +676,21 @@ function drawImage(startX, startY, image, palette) {
   }
 }
 
+//when you hold escaoe start the reset timer
 function reset (){
+
   if (keyIsDown(ESCAPE)){
     resetTimer = resetTimer + deltaTime / 1000
+    
     resetbar++
   }
+
   else {
     resetTimer = 0
     resetbar = 0
   }
 
+  //if the bar is at the end reset everything about larry
   if (resetbar == 160){
     resetbar = 0
     hunger = 100
@@ -492,15 +698,10 @@ function reset (){
     health = 100
     happiness = 100
     fur = 0
-  }
-}
-
-function keyPressed(){
-  if (keyIsPressed == true){
-    if (keyCode == 32){
-    fur = [random(0, 255), random(0, 255), random(0, 255)]
+    daytimer = 0
   }
 }
 
 
-}
+
+
