@@ -13,7 +13,7 @@ let stats = 0;
 
 let resetbar = 0;
 let resetTimer = 0;
-let buttonTimer= 0;
+let buttonTimer = 0;
 
 let fur = 0;
 let menuOpen = false;
@@ -51,28 +51,28 @@ function setup() {
 }
 
 //load the day/night background image
-function preload(){
-  bgroundnight = loadImage ("/../Images/backgroundnight.jpg")
-  bgroundday = loadImage ("/../Images/background.jpg")
+function preload() {
+  bgroundnight = loadImage("/../Images/backgroundnight.jpg")
+  bgroundday = loadImage("/../Images/background.jpg")
 }
 
 function draw() {
 
   //if the time of the day is higher then 60 make it night
-  if (daytimer > 0 && daytimer < 60){
-  background(bgroundday)
-  textcolor = 0
-  night = false
+  if (daytimer > 0 && daytimer < 60) {
+    background(bgroundday)
+    textcolor = 0
+    night = false
   }
 
   else {
-    background (bgroundnight)
-    night = true   
+    background(bgroundnight)
+    night = true
     textcolor = 255
   }
 
   //when the time = 100 set it back to 0
-  if (daytimer > 100){
+  if (daytimer > 100) {
     daytimer = 0
   }
 
@@ -95,24 +95,24 @@ function draw() {
   drawBars()
 
   //make the name larry show up and the reset text
-  textSize ( 30)
-  fill (textcolor)
-  textFont ("comic sans ms")
-  text ("Larry", 310, 140)
+  textSize(30)
+  fill(textcolor)
+  textFont("comic sans ms")
+  text("Larry", 310, 140)
 
-  textSize (15)
-  text ("Hold Esc to reset Larry", 10, 30)
+  textSize(15)
+  text("Hold Esc to reset Larry", 10, 30)
 
   //check what state larry is in
   checkState()
 
   //draw larry every frame
   drawAnimal()
-    
-    //make the menu background when you click the menu button
-    if (menuOpen == true){
-    fill (255)
-    rect (301, 10, 350, 80)
+
+  //make the menu background when you click the menu button
+  if (menuOpen == true) {
+    fill(255)
+    rect(301, 10, 350, 80)
 
     blackColor.show()
     greenColor.show()
@@ -130,12 +130,12 @@ function draw() {
   daytimer = daytimer + deltaTime / 1000
 
   //when larry isnt sleeping give him hunger
-  if (hunger > 0 && isSleeping == false){
+  if (hunger > 0 && isSleeping == false) {
     hunger = hunger - deltaTime / 3000
   }
-  
+
   //when larry isnt sleeping make him tired
-  if (energy > 0 && night == false&& isSleeping == false){
+  if (energy > 0 && night == false && isSleeping == false) {
     energy = energy - deltaTime / 3100
   }
 
@@ -143,19 +143,19 @@ function draw() {
   else if (night == true && isSleeping == false) {
     energy = energy - deltaTime / 1500
   }
-  
+
   //when larry his hunger is 0 make him sick
-  if (hunger < 1&& isSleeping == false){
+  if (hunger < 1 && isSleeping == false) {
     health = health - deltaTime / 4000
   }
-  
+
   //make larry less happy over time
-  if (happiness > 0&& isSleeping == false){
+  if (happiness > 0 && isSleeping == false) {
     happiness = happiness - deltaTime / 5000
   }
 
   //when larry is sleeping give him hunger. and more energy and health
-  if (isSleeping == true){
+  if (isSleeping == true) {
     hunger = hunger - deltaTime / 900
     energy = energy + deltaTime / 500
     health = health + deltaTime / 1000
@@ -163,9 +163,8 @@ function draw() {
 }
 
 //reset all the buttons when they were hidden
-function resetButtons()
-{
-  foodButton.position (100, 370)
+function resetButtons() {
+  foodButton.position(100, 370)
 
   HealthButton.position(550, 370)
 
@@ -180,28 +179,28 @@ function resetButtons()
   size = 15
 
   sleepButton.position(400, 380)
-  sleepButton.size (80, 50)
+  sleepButton.size(80, 50)
   stopsleep.hide()
   isSleeping = false
-  
+
   stopPlay.hide()
   ballButton.hide()
-  
+
 }
 
-  //when the function is called save all the stats of the game
-  function saveData (){
+//when the function is called save all the stats of the game
+function saveData() {
   stats = []
-  stats.push (
+  stats.push(
 
-  hunger,
-  energy,
-  health,
-  happiness,
-  fur,
-  daytimer
+    hunger,
+    energy,
+    health,
+    happiness,
+    fur,
+    daytimer
 
-)
+  )
   storeItem('hungerstat', stats[0])
 
   storeItem('energystat', stats[1])
@@ -216,7 +215,7 @@ function resetButtons()
 }
 
 //when the game starts load the data that was stored
-function loadData(){
+function loadData() {
   hunger = getItem("hungerstat") || 100
 
   energy = getItem("energystat") || 100
@@ -231,106 +230,106 @@ function loadData(){
 }
 
 //create all the buttons needed to play the game
-function createButtons(){
+function createButtons() {
   foodButton = createImg("/../Images/burger.png")
-  foodButton.size (70, 70)
+  foodButton.size(70, 70)
   foodButton.position(100, 370)
   foodButton.mouseClicked(giveFood)
 
   playButton = createImg("/../Images/play.png")
   playButton.position(250, 370)
-  playButton.size (80, 70)
+  playButton.size(80, 70)
   playButton.mouseClicked(play)
-  
+
   sleepButton = createImg("/../Images/bed.png")
   sleepButton.position(400, 380)
-  sleepButton.size (80, 50)
+  sleepButton.size(80, 50)
   sleepButton.mouseClicked(sleep)
 
   HealthButton = createImg("/../Images/soap.png")
-  HealthButton.size (80, 80)
+  HealthButton.size(80, 80)
   HealthButton.position(550, 370)
   HealthButton.mouseClicked(heal)
 
-  menu = createImg ("/../Images/hamburgermenu.png")
-  menu.position (650, 10)
-  menu.size (40, 40)
-  menu.mouseClicked (menuBar)
+  menu = createImg("/../Images/hamburgermenu.png")
+  menu.position(650, 10)
+  menu.size(40, 40)
+  menu.mouseClicked(menuBar)
 
-  blackColor = createImg ("/../Images/black.jpeg")
-  blackColor.size (70, 70)
-  blackColor.position (320, 15)
+  blackColor = createImg("/../Images/black.jpeg")
+  blackColor.size(70, 70)
+  blackColor.position(320, 15)
   blackColor.mouseClicked(giveBlackFur)
 
-  greenColor = createImg ("/../Images/green.png")
-  greenColor.size (70, 70)
-  greenColor.position (440, 15)
+  greenColor = createImg("/../Images/green.png")
+  greenColor.size(70, 70)
+  greenColor.position(440, 15)
   greenColor.mouseClicked(giveGreenFur)
 
-  redColor = createImg ("/../Images/red.jpg")
-  redColor.size (70, 70)
-  redColor.position (560, 15)
+  redColor = createImg("/../Images/red.jpg")
+  redColor.size(70, 70)
+  redColor.position(560, 15)
   redColor.mouseClicked(giveRedFur)
 
   stopsleep = createImg("/../Images/nobed.png")
-  stopsleep.position (600, 350)
-  stopsleep.size (80, 80)
+  stopsleep.position(600, 350)
+  stopsleep.size(80, 80)
   stopsleep.mouseClicked(resetButtons)
   stopsleep.hide()
 
   stopPlay = createImg("/../Images/noplay.png")
-  stopPlay.position (600, 350)
-  stopPlay.size (80, 80)
+  stopPlay.position(600, 350)
+  stopPlay.size(80, 80)
   stopPlay.mouseClicked(resetButtons)
   stopPlay.hide()
 
   ballButton = createImg("/../Images/bal.png")
-  ballButton.size (40, 40)
-  ballButton.position (ballX, ballY)
-  ballButton.mouseClicked (clickedBall)
+  ballButton.size(40, 40)
+  ballButton.position(ballX, ballY)
+  ballButton.mouseClicked(clickedBall)
   ballButton.hide()
 
 }
 
 //when you click on the ball in the minigame give it a random location
-function clickedBall (){
-  ballX = round (random (0, 660))
+function clickedBall() {
+  ballX = round(random(0, 660))
 
-  ballY = round (random (0, 410))
+  ballY = round(random(0, 410))
 
-  ballButton.position (ballX, ballY)
+  ballButton.position(ballX, ballY)
 
   energy -= 10
   happiness += 20
 }
 
 //give larry black fur
-function giveBlackFur (){
+function giveBlackFur() {
   fur = [0]
 }
 
 //give larry green fur
-function giveGreenFur (){
+function giveGreenFur() {
   fur = [4, 130, 4]
 }
 
 //give larry red fur
-function giveRedFur (){
+function giveRedFur() {
   fur = "red"
 }
 
 //when the menu button is clicked set menuOpen to true
-function menuBar(){
- menuOpen = !menuOpen
+function menuBar() {
+  menuOpen = !menuOpen
 }
 
 //when the foodbutton is clicked give him food and place the icon by his mouth
-function giveFood(){
+function giveFood() {
   hunger += 30;
-  if (hunger > 100){
+  if (hunger > 100) {
     health -= 10
   }
-  
+
   energy += 10;
   happiness += 5;
 
@@ -345,43 +344,41 @@ function giveFood(){
 }
 
 //when you click the sleep button set issleeping to true and give energy
-function sleep (){
+function sleep() {
 
-isSleeping = true
+  isSleeping = true
 
-size = 5
+  size = 5
 
-startX = 300
-startY = 270
+  startX = 300
+  startY = 270
 
-foodButton.hide()
-playButton.hide()
-HealthButton.hide()
-stopsleep.show()
+  foodButton.hide()
+  playButton.hide()
+  HealthButton.hide()
+  stopsleep.show()
 
-sleepButton.size(150, 100)
-sleepButton.position(270, 300)
+  sleepButton.size(150, 100)
+  sleepButton.position(270, 300)
 }
 
 //when you click play start the minigame and give the ball a random loction
-function play(){
+function play() {
 
-ballX = round(random (0, 700))
+  ballX = round(random(0, 700))
+  ballY = round(random(0, 450))
+  ballButton.position(ballX, ballY)
 
-ballY = round(random (0, 450))
-
-ballButton.position (ballX, ballY)
-
-foodButton.hide()
-ballButton.show()
-playButton.hide()
-sleepButton.hide()
-HealthButton.hide()
-stopPlay.show()
+  foodButton.hide()
+  ballButton.show()
+  playButton.hide()
+  sleepButton.hide()
+  HealthButton.hide()
+  stopPlay.show()
 }
 
 //when you clean larry give him health
-function heal(){
+function heal() {
   health += 20;
 
   foodButton.hide()
@@ -392,45 +389,45 @@ function heal(){
 }
 
 //check every frame if larry needs to show emotions
-function checkState(){
+function checkState() {
 
-  if (isSleeping == true){
+  if (isSleeping == true) {
     larryState = states.sleeping
   }
 
-  else if (health < 50 && health > 25){
+  else if (health < 50 && health > 25) {
     larryState = states.low_health
   }
 
-  else if (health < 25 && health > 1){
+  else if (health < 25 && health > 1) {
     larryState = states.lower_health
   }
 
-  else if (health < 1){
+  else if (health < 1) {
     larryState = states.death
   }
 
-  else if (hunger > 25 && hunger < 50){
+  else if (hunger > 25 && hunger < 50) {
     larryState = states.hungry
   }
 
-  else if (hunger < 25){
+  else if (hunger < 25) {
     larryState = states.starving
   }
 
-  else if (happiness < 50 && happiness > 25){
+  else if (happiness < 50 && happiness > 25) {
     larryState = states.littlecry
   }
 
-  else if (happiness < 25){
+  else if (happiness < 25) {
     larryState = states.hardcry
   }
 
-  else if (energy < 50 && energy > 25){
+  else if (energy < 50 && energy > 25) {
     larryState = states.littletired
   }
 
-  else if (energy < 25){
+  else if (energy < 25) {
     larryState = states.tired
   }
 
@@ -440,215 +437,215 @@ function checkState(){
 }
 
 //draw the 4 bars and the reset bar
-function drawBars(){
+function drawBars() {
   textSize(13)
   //hunger
-  strokeWeight (1)
-  fill ("green")
-  rect (450, 100, 10, 100)
-  fill (255)
-  rect (450, 100, 10, 100 - hunger)
-  fill (textcolor)
-  text ("Food", 440, 210)
+  strokeWeight(1)
+  fill("green")
+  rect(450, 100, 10, 100)
+  fill(255)
+  rect(450, 100, 10, 100 - hunger)
+  fill(textcolor)
+  text("Food", 440, 210)
 
   //energy
-  strokeWeight (1)
-  fill ("yellow")
-  rect (510, 100, 10, 100)
-  fill (255)
-  rect (510, 100, 10, 100 - energy)
+  strokeWeight(1)
+  fill("yellow")
+  rect(510, 100, 10, 100)
+  fill(255)
+  rect(510, 100, 10, 100 - energy)
   fill(textcolor)
-  text ("Energy", 495, 210)
+  text("Energy", 495, 210)
 
   //Health
-  strokeWeight (1)
-  fill ("red")
-  rect (570, 100, 10, 100)
-  fill (255)
-  rect (570, 100, 10, 100 - health)
+  strokeWeight(1)
+  fill("red")
+  rect(570, 100, 10, 100)
+  fill(255)
+  rect(570, 100, 10, 100 - health)
   fill(textcolor)
-  text ("Health", 555, 210)
+  text("Health", 555, 210)
 
   //Happiness
-  strokeWeight (1)
-  fill ("orange")
-  rect (630, 100, 10, 100)
-  fill (255)
-  rect (630, 100, 10, 100 - happiness)
+  strokeWeight(1)
+  fill("orange")
+  rect(630, 100, 10, 100)
+  fill(255)
+  rect(630, 100, 10, 100 - happiness)
   fill(textcolor)
-  text ("happiness", 610, 210)
+  text("happiness", 610, 210)
 
   //resetbar
-  if (keyIsDown (ESCAPE)){
-  fill (255)
-  rect (10, 40, 160, 15)
-  fill ("red")
-  rect (10, 40, resetbar, 15)
+  if (keyIsDown(ESCAPE)) {
+    fill(255)
+    rect(10, 40, 160, 15)
+    fill("red")
+    rect(10, 40, resetbar, 15)
   }
 }
 
 //draw larry
 function drawAnimal() {
-  
+
   //the array where larry his frames are stored
   let animal =
-  [ 
     [
-      [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
-      [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
-      [0, 0, 0, 2, 1, 1, 3, 1, 1, 2, 0, 0],
-      [0, 0, 2, 2, 1, 1, 1, 1, 1, 2, 2, 0],
-      [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
-      [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
-      [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
-      [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
-    ],
-    [
-      [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
-      [0, 0, 0, 2, 1, 6, 3, 6, 1, 2, 0, 0],
-      [0, 0, 2, 2, 1, 6, 1, 1, 1, 2, 2, 0],
-      [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
-      [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
-      [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
-      [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
-    ],
-    [
-      [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
-      [0, 0, 2, 1, 4, 1, 2, 1, 4, 1, 2, 0],
-      [0, 0, 2, 1, 4, 3, 3, 3, 4, 1, 2, 0],
-      [0, 0, 0, 2, 1, 1, 3, 1, 1, 2, 0, 0],
-      [0, 0, 2, 2, 4, 1, 1, 1, 4, 2, 2, 0],
-      [0, 2, 2, 2, 1, 4, 1, 1, 1, 2, 2, 2],
-      [0, 2, 2, 2, 1, 1, 1, 1, 4, 2, 2, 2],
-      [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
-      [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
-    ],
-    [
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0],
-      [0, 0, 0, 4, 2, 2, 2, 2, 2, 4, 0, 0],
-      [0, 0, 4, 2, 3, 2, 2, 2, 3, 2, 4, 0],
-      [0, 4, 4, 3, 3, 3, 2, 3, 3, 3, 4, 0],
-    ],
-    [
-      [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
-      [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
-      [0, 0, 2, 1, 5, 1, 2, 1, 5, 1, 2, 0],
-      [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
-      [0, 0, 0, 2, 1, 1, 3, 1, 1, 2, 0, 0],
-      [0, 0, 2, 2, 1, 1, 1, 1, 1, 2, 2, 0],
-      [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
-      [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
-      [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
-      [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
-    ],
-    [
-      [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
-      [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
-      [0, 0, 2, 1, 5, 1, 2, 1, 5, 1, 2, 0],
-      [0, 0, 2, 1, 5, 3, 3, 3, 5, 1, 2, 0],
-      [0, 0, 0, 2, 5, 1, 3, 1, 5, 2, 0, 0],
-      [0, 0, 2, 2, 1, 1, 1, 1, 1, 2, 2, 0],
-      [0, 2, 2, 2, 5, 1, 1, 1, 1, 2, 2, 2],
-      [0, 2, 2, 2, 1, 1, 1, 1, 5, 2, 2, 2],
-      [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
-      [0, 0, 0, 3, 5, 3, 0, 3, 5, 3, 0, 0],
-    ],
-    [
-      [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
-      [0, 0, 0, 2, 1, 1, 3, 1, 1, 2, 0, 0],
-      [0, 0, 2, 2, 1, 1, 1, 1, 1, 2, 2, 0],
-      [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
-      [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
-      [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
-      [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
-    ],
-    [
-      [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 7, 7, 1, 2, 1, 7, 7, 2, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
-      [0, 0, 0, 2, 1, 1, 3, 1, 1, 2, 0, 0],
-      [0, 0, 2, 2, 1, 1, 1, 1, 1, 2, 2, 0],
-      [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
-      [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
-      [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
-      [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
-    ],
-    [
-      [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
-      [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
-      [0, 0, 0, 2, 2, 1, 3, 1, 2, 2, 0, 0],
-      [0, 0, 0, 0, 0, 2, 1, 2, 0, 0, 0, 0],
-      [0, 0, 0, 0, 2, 2, 1, 2, 2, 0, 0, 0],
-      [0, 0, 0, 0, 0, 2, 1, 2, 0, 0, 0, 0],
-      [0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0],
-      [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
-    ],
-    [
-      [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
-      [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
-      [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
-      [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
-      [0, 0, 0, 2, 2, 1, 3, 1, 2, 2, 0, 0],
-      [0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0],
-      [0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0],
-      [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
-    ],
-    [
-      [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0],
-      [0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 0],
-      [2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 3],
-      [2, 1, 7, 7, 1, 1, 1, 1, 1, 1, 1, 3],
-      [2, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 3],
-      [2, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 0],
-      [2, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 3],
-      [2, 1, 7, 7, 1, 1, 1, 1, 1, 1, 1, 3],
-      [2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 3],
-      [0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [
+        [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
+        [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
+        [0, 0, 0, 2, 1, 1, 3, 1, 1, 2, 0, 0],
+        [0, 0, 2, 2, 1, 1, 1, 1, 1, 2, 2, 0],
+        [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
+        [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
+        [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+        [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
+      ],
+      [
+        [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
+        [0, 0, 0, 2, 1, 6, 3, 6, 1, 2, 0, 0],
+        [0, 0, 2, 2, 1, 6, 1, 1, 1, 2, 2, 0],
+        [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
+        [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
+        [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+        [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
+      ],
+      [
+        [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
+        [0, 0, 2, 1, 4, 1, 2, 1, 4, 1, 2, 0],
+        [0, 0, 2, 1, 4, 3, 3, 3, 4, 1, 2, 0],
+        [0, 0, 0, 2, 1, 1, 3, 1, 1, 2, 0, 0],
+        [0, 0, 2, 2, 4, 1, 1, 1, 4, 2, 2, 0],
+        [0, 2, 2, 2, 1, 4, 1, 1, 1, 2, 2, 2],
+        [0, 2, 2, 2, 1, 1, 1, 1, 4, 2, 2, 2],
+        [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+        [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
+      ],
+      [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0],
+        [0, 0, 0, 4, 2, 2, 2, 2, 2, 4, 0, 0],
+        [0, 0, 4, 2, 3, 2, 2, 2, 3, 2, 4, 0],
+        [0, 4, 4, 3, 3, 3, 2, 3, 3, 3, 4, 0],
+      ],
+      [
+        [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
+        [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
+        [0, 0, 2, 1, 5, 1, 2, 1, 5, 1, 2, 0],
+        [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
+        [0, 0, 0, 2, 1, 1, 3, 1, 1, 2, 0, 0],
+        [0, 0, 2, 2, 1, 1, 1, 1, 1, 2, 2, 0],
+        [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
+        [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
+        [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+        [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
+      ],
+      [
+        [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
+        [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
+        [0, 0, 2, 1, 5, 1, 2, 1, 5, 1, 2, 0],
+        [0, 0, 2, 1, 5, 3, 3, 3, 5, 1, 2, 0],
+        [0, 0, 0, 2, 5, 1, 3, 1, 5, 2, 0, 0],
+        [0, 0, 2, 2, 1, 1, 1, 1, 1, 2, 2, 0],
+        [0, 2, 2, 2, 5, 1, 1, 1, 1, 2, 2, 2],
+        [0, 2, 2, 2, 1, 1, 1, 1, 5, 2, 2, 2],
+        [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+        [0, 0, 0, 3, 5, 3, 0, 3, 5, 3, 0, 0],
+      ],
+      [
+        [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
+        [0, 0, 0, 2, 1, 1, 3, 1, 1, 2, 0, 0],
+        [0, 0, 2, 2, 1, 1, 1, 1, 1, 2, 2, 0],
+        [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
+        [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
+        [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+        [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
+      ],
+      [
+        [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 7, 7, 1, 2, 1, 7, 7, 2, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
+        [0, 0, 0, 2, 1, 1, 3, 1, 1, 2, 0, 0],
+        [0, 0, 2, 2, 1, 1, 1, 1, 1, 2, 2, 0],
+        [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
+        [0, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 2],
+        [0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2],
+        [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
+      ],
+      [
+        [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
+        [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
+        [0, 0, 0, 2, 2, 1, 3, 1, 2, 2, 0, 0],
+        [0, 0, 0, 0, 0, 2, 1, 2, 0, 0, 0, 0],
+        [0, 0, 0, 0, 2, 2, 1, 2, 2, 0, 0, 0],
+        [0, 0, 0, 0, 0, 2, 1, 2, 0, 0, 0, 0],
+        [0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0],
+        [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
+      ],
+      [
+        [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
+        [0, 0, 2, 1, 7, 1, 2, 1, 7, 1, 2, 0],
+        [0, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 0],
+        [0, 0, 2, 1, 1, 3, 3, 3, 1, 1, 2, 0],
+        [0, 0, 0, 2, 2, 1, 3, 1, 2, 2, 0, 0],
+        [0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0],
+        [0, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0],
+        [0, 0, 0, 3, 3, 3, 0, 3, 3, 3, 0, 0],
+      ],
+      [
+        [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0],
+        [0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 0],
+        [2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 3],
+        [2, 1, 7, 7, 1, 1, 1, 1, 1, 1, 1, 3],
+        [2, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 3],
+        [2, 2, 2, 2, 2, 3, 3, 1, 1, 1, 1, 0],
+        [2, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 3],
+        [2, 1, 7, 7, 1, 1, 1, 1, 1, 1, 1, 3],
+        [2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 1, 3],
+        [0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ]
     ]
-  ]
-  
+
   //the colorpallet that larry uses
   let colorpallet = [
     color(0, 0, 0, 0),
@@ -663,7 +660,7 @@ function drawAnimal() {
 
   //call drawimage
   drawImage(startX, startY, animal[larryState], colorpallet);
-} 
+}
 
 //draw larry with the parameters given
 function drawImage(startX, startY, image, palette) {
@@ -677,11 +674,11 @@ function drawImage(startX, startY, image, palette) {
 }
 
 //when you hold escaoe start the reset timer
-function reset (){
+function reset() {
 
-  if (keyIsDown(ESCAPE)){
+  if (keyIsDown(ESCAPE)) {
     resetTimer = resetTimer + deltaTime / 1000
-    
+
     resetbar++
   }
 
@@ -691,7 +688,7 @@ function reset (){
   }
 
   //if the bar is at the end reset everything about larry
-  if (resetbar == 160){
+  if (resetbar == 160) {
     resetbar = 0
     hunger = 100
     energy = 100
