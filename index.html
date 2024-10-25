@@ -6,39 +6,67 @@
     <title>My p5.js Projects</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+            background-color: green;
             text-align: center;
             margin: 50px;
         }
         ul {
             list-style-type: none;
+            padding: 0;
         }
         li {
             margin: 10px 0;
         }
         a {
             text-decoration: none;
-            color: #007bff;
+            color: white;
         }
         a:hover {
             text-decoration: underline;
         }
+        /* Style for first image (left) */
+        .left-img {
+            float: left;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            width: 350px;
+            height: 200px;
+        }
+        /* Style for second image (right) */
+        .right-img {
+            float: right;
+            margin-left: 20px;
+            margin-bottom: 20px;
+            width: 400px;
+            height: 200px;
+        }
+        .content-wrapper {
+            clear: both;
+        }
     </style>
 </head>
 <body>
-    <h1>Welcome to My p5.js Projects</h1>
-    <p>Click on a project to view it:</p>
-    <ul>
-        <li><a href="mondriaan/index.html">Mondriaan eerste opdracht</a></li>
-        <li><a href="Week%201/index.html">Week 1 Hello World!</a></li>
-        <li><a href="Week%202/index.html">Week 2 Dynamic Landscape</a></li>
-        <li><a href="Week%203/index.html">Week 3 Tic Tac Toe</a></li>
-        <li><a href="Week%204%20generative%20kunst/index.html">Week 4 Generative Kunst</a></li>
-        <li><a href="Week%205%20pixelart/index.html">Week 5 Pixelart</a></li>
-        <li><a href="Week%206%20Quiz/index.html">Week 6 Quiz</a></li>
-        <li><a href="Week%207&8%20virtueel%20huisdier/index.html">Week 7 & 8 Virtueel Huisdier</a></li>
-        <!-- Add more projects as needed -->
-    </ul>
+    <h1>Mijn hele coole weekopdrachten</h1>
+    <p>Van Milan Veldhuizen</p>
+    
+    
+    <div class="content-wrapper">
+        <ul>
+            <li><a href="mondriaan/index.html">Mondriaan eerste opdracht</a></li>
+            <li><a href="week 1/index.html">Week 1 Hello World!</a></li>
+            <li><a href="week%202/index.html">Week 2 Dynamic Landscape</a></li>
+            <li><a href="week%203/index.html">Week 3 Tic Tac Toe</a></li>
+            <li><a href="Week%204%20generative%20kunst/index.html">Week 4 Generative Kunst</a></li>
+            <li><a href="week%205%20pixelart/index.html">Week 5 Pixelart</a></li>
+            <li><a href="Week%206%20Quiz/index.html">Week 6 Quiz</a></li>
+            <li><a href="Week%207&8%20virtueel%20huisdier/index.html">Week 7 & 8 Virtueel Huisdier</a></li>
+            <!-- First image floats to the left -->
+            <img src="Week 6 Quiz/Images/question 4.jpeg" alt="Description of image" class="left-img">
+            
+            <!-- Second image floats to the right -->
+            <img src="Week 6 Quiz/Images/question 1.jpeg" alt="Description of image" class="right-img">
+        </ul>
+    </div>
 </body>
 </html>
-
