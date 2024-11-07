@@ -1,6 +1,6 @@
 let playerturn = 1
 function setup() {
-  createCanvas(700, 500);
+  createCanvas(750, 500);
 }
 
 function draw() {
@@ -12,13 +12,13 @@ function draw() {
   fill (0)
   textSize (50)
   text ("Player: " + playerturn, 250, 50)
-  textSize (20)
+  textSize (30)
   text ("Player 1:", 560, 200)
   text ("Player 2:", 560, 270)
   fill (255, 0, 0)
-  circle (670, 195, 30)
+  circle (720, 195, 50)
   fill (255, 255, 0)
-  circle (670, 265, 30)
+  circle (720, 265, 50)
 }
 
 let grid =
@@ -36,8 +36,8 @@ function drawGrid() {
   let colorPallet =
     [
       color(255), //white
-      color(255, 255, 0),//yellow
       color(255, 0, 0), //red
+      color(255, 255, 0),//yellow
     ]
 
   let rowHeight = 55;
