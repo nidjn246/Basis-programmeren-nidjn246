@@ -1,4 +1,5 @@
 let playerturn = 1
+let playerwin = false
 function setup() {
   createCanvas(750, 500);
 }
@@ -19,6 +20,11 @@ function draw() {
   circle (720, 195, 50)
   fill (255, 255, 0)
   circle (720, 265, 50)
+  fill (0)
+  textSize (40)
+  if (playerwin == true){
+    text("Player " + playerturn + " wins!", 300, 500);
+  }
 }
 
 let grid =
@@ -68,7 +74,49 @@ function mouseClicked() {
       if (playerturn > 2) {
         playerturn = 1
       }
+      if (checkForWin(colomnClicked, colomnHeight)) {
+        playerwin = true
+        noLoop(); 
+      }
         break;
     }
   }
+}
+
+
+function checkForWin(x, y) {
+  let player = grid[x][y];
+  
+  return (
+    checkDirection(x, y, 1, 0, player) ||
+    checkDirection(x, y, 0, 1, player) || 
+    checkDirection(x, y, 1, 1, player) || 
+    checkDirection(x, y, 1, -1, player)
+  );
+}
+
+function checkDirection(x, y, dx, dy, player) {
+  let count = 1;
+
+  for (let i = 1; i < 4; i++) {
+    let nx = x + i * dx;
+    let ny = y + i * dy;
+    if (nx >= 0 && nx < grid.length && ny >= 0 && ny < grid[0].length && grid[nx][ny] === player) {
+      count++;
+    } else {
+      break;
+    }
+  }
+
+  for (let i = 1; i < 4; i++) {
+    let nx = x - i * dx;
+    let ny = y - i * dy;
+    if (nx >= 0 && nx < grid.length && ny >= 0 && ny < grid[0].length && grid[nx][ny] === player) {
+      count++;
+    } else {
+      break;
+    }
+  }
+
+  return count >= 4;
 }
